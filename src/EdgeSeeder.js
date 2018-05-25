@@ -24,6 +24,7 @@ class EdgeSeeder {
     if (!fs.existsSync(seedPath)) {
       return;
     }
+
     return foldero(seedPath, {
       recurse: true,
       whitelist: '(.*/)*.+\.(json|ya?ml)$',
@@ -57,7 +58,7 @@ class EdgeSeeder {
           title: 'Laravel Mix',
           subtitle: 'Edge Compilation Failed',
           message: e.message,
-          contentImage: 'node_modules/laravel-mix-edge/src/logo.png'
+          contentImage: 'node_modules/laravel-mix-edge/logo.png'
         });
       }
     }
