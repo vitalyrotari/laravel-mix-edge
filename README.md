@@ -22,7 +22,7 @@ Head over to your `webpack.mix.js` and register it on the Laravel Mix API:
 
 ```js
 let mix = require('laravel-mix');
-mix.edge = require('laravel-mix-edge');
+require('laravel-mix-edge');
 
 mix.js('src/app.js', 'dist')
    .sass('src/app.scss', 'dist')
@@ -54,8 +54,7 @@ And if you have a file `demo.yml` in there all the content will be available in 
 It's possible to pass in an object which will be added to locals in your Edge templates:
 
 ```js
-mix.edge('src/view', 'dist', {
-  excludePath: 'src/views',
+mix.edge('src/view', 'dist', {}, {
   locals: {
     config: { baseUrl: 'http://my-template.dev/' }
   }
@@ -69,12 +68,22 @@ and in your edge file:
 <script src="{{ config.baseUrl }}js/main.js"></script>
 ```
 
-### outputExtension
-It is possible to change to output file extension.
+### outputExtension && sourceExtension
+It is possible to change to output file and source file extension.
 
 ```js
 mix.edge('src/views', 'dist', {
+  sourceExtension: '.edge.html',
   outputExtension: '.blade.php',
+});
+````
+
+### edge
+It is possible to set options to Edge library.
+
+```js
+mix.edge('src/views', 'dist', {}, {
+  edge: {}
 });
 ````
 
@@ -83,7 +92,7 @@ Globals are key/value pairs available to all of your templates. Edge ships with 
 [More info](https://edge.adonisjs.com/docs/globals)
 
 ```js
-mix.edge('src/views', 'dist', {
+mix.edge('src/views', 'dist', {}, {
   global: {
     'json': data => JSON.stringify(data),
   }
@@ -95,10 +104,8 @@ View Presenter is a way to encapsulate complex logic inside a dedicated class, i
 [More info](https://edge.adonisjs.com/docs/presenters)
 
 ```js
-let path = require('path');
-
 mix.edge('src/views', 'dist', {
-  presenters: path.join(__dirname, 'src/presenters')
+  presenters: 'src/presenters'
 });
 ````
 
